@@ -4,21 +4,23 @@ use App\Models\User;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\postJson;
 
-beforeEach(fn() => $user = User::factory()->create());
+beforeEach(fn () => $this->user = User::factory()->make());
 
 test('it should be able to register a default user', function () {
-    dd($this->user);
     postJson(route('auth.register'), [
-        'document' => fake()->numerify("###########"),
-        'first_name' => fake()->firstName(),
-        'last_name' => fake()->lastName(),
-        'email' => fake()->email(),
+        'document' => $this->user->document,
+        'first_name' => $this->user->first_name,
+        'last_name' => $this->user->last_name,
+        'email' => $this->user->email,
         'password' => 'password'
     ])
         ->assertCreated()
         ->assertJsonStructure(['user', 'token']);
 
-    assertDatabaseHas();
+    assertDatabaseHas('users', [
+        'document' => $this->user->document,
+        'email' => $this->user->email
+    ]);
 });
 
 //test('it should be able to register an admin user', function () {

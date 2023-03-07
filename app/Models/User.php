@@ -23,6 +23,7 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
+        'is_admin'
     ];
 
     /**
@@ -43,4 +44,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function handleTokens(): string
+    {
+        if ($this->tokens()->count() > 0) {
+            $this->tokens()->delete();
+        }
+        return $this->createToken($this->email)->plainTextToken;
+    }
 }
