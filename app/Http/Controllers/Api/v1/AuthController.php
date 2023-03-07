@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Api\v1;
 use App\Actions\v1\RegisterUser;
 use App\DTOs\UserDTO;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\RegisterUserRequest;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(RegisterUserRequest $request)
     {
         $user = RegisterUser::run(UserDTO::fromRequest($request));
         if (!$user) {

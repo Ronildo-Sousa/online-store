@@ -27,6 +27,26 @@ test('it should be able to register a default user', function () {
 //
 //});
 
-//test('user model fields should be required and valid', function () {
-//
-//});
+test('should not be able to register with empty fields', function () {
+    postJson(route('auth.register'), [
+        'document' => '',
+        'first_name' => '',
+        'last_name' => '',
+        'email' => '',
+        'password' => ''
+    ])
+        ->assertUnprocessable();
+});
+
+test('should not be able to register with a document or email that has been taken', function () {
+    $user2 = User::factory()->create();
+    postJson(route('auth.register'), [
+        'document' => $user2->document,
+        'first_name' => $this->user->first_name,
+        'last_name' => $this->user->last_name,
+        'email' => $user2->email,
+        'password' => 'password'
+    ])
+        ->assertUnprocessable()
+        ->assertJsonValidationErrors(['document', 'email']);
+});

@@ -22,10 +22,10 @@ class UserDTO extends ValidatedDTO
     protected function rules(): array
     {
         return [
-            'document' => ['required', 'string', 'max:11', 'unique:users,document'],
+            'document' => ['required', 'string'],
             'first_name' => ['required', 'string'],
             'last_name' => ['required', 'string'],
-            'email' => ['required', 'string', 'email', 'unique:users,email'],
+            'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
             'is_admin' => ['boolean'],
             'token' => ['string'],
@@ -72,5 +72,9 @@ class UserDTO extends ValidatedDTO
     public function attributes(): array
     {
         return [];
+    }
+
+    protected function failedValidation(): void
+    {
     }
 }
