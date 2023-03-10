@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Actions\v1\RegisterUser;
 use App\DTOs\UserDTO;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginUserRequest;
 use App\Http\Requests\RegisterUserRequest;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -25,5 +26,9 @@ class AuthController extends Controller
             'user' => $user['user'],
             'token' => $user['token'],
         ], Response::HTTP_CREATED);
+    }
+
+    public function login(LoginUserRequest $request)
+    {
     }
 }
