@@ -12,6 +12,10 @@ class AuthController extends Controller
 {
     public function register(RegisterUserRequest $request)
     {
+        if ($request->is_admin) {
+            (auth()->user()?->is_admin !== true) ? $request->is_admin = false : '';
+        }
+
         $user = RegisterUser::run(UserDTO::fromRequest($request));
         if (!$user) {
             return response()->json(['message', 'Could not create user'], Response::HTTP_INTERNAL_SERVER_ERROR);
