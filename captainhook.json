@@ -11,11 +11,11 @@
         "enabled": true,
         "actions": [
             {
-                "action": "php ./vendor/bin/pint -v",
+                "action": "./vendor/bin/pint -v",
                 "options": []
             },
             {
-                "action": "php ./vendor/bin/pest",
+                "action": "./vendor/bin/sail artisan test",
                 "options": []
             }
         ]
