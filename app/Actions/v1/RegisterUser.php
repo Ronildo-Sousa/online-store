@@ -7,7 +7,7 @@ use App\Models\User;
 
 class RegisterUser
 {
-    public static function run(UserDTO $userDto)
+    public static function run(UserDTO $userDto): array
     {
         $user = User::query()
             ->create($userDto->toArray());
