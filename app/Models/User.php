@@ -23,7 +23,7 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
-        'is_admin'
+        'is_admin',
     ];
 
     /**
@@ -50,6 +50,7 @@ class User extends Authenticatable
         if ($this->tokens()->count() > 0) {
             $this->tokens()->delete();
         }
+
         return $this->createToken($this->email)->plainTextToken;
     }
 }

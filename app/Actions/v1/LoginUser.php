@@ -18,9 +18,10 @@ class LoginUser
 
             return [
                 'user' => $user,
-                'token' => $token
+                'token' => $token,
             ];
         }
+
         return null;
     }
 }

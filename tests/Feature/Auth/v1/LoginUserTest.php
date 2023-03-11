@@ -1,16 +1,14 @@
 <?php
 
 use App\Models\User;
-
 use function Pest\Laravel\postJson;
-
 
 beforeEach(fn () => $this->user = User::factory()->create());
 
 it('should be able to login', function () {
     postJson(route('auth.login'), [
         'email' => $this->user->email,
-        'password' => 'password'
+        'password' => 'password',
     ])
         ->assertOk()
         ->assertJsonStructure(['user', 'token']);
@@ -19,7 +17,7 @@ it('should be able to login', function () {
 it('should not be able to login with wrong credentials', function () {
     postJson(route('auth.login'), [
         'email' => $this->user->email,
-        'password' => 'wrong password'
+        'password' => 'wrong password',
     ])
         ->assertUnauthorized()
         ->assertJsonStructure(['message']);
@@ -28,13 +26,13 @@ it('should not be able to login with wrong credentials', function () {
 test('email should be required and valid', function () {
     postJson(route('auth.login'), [
         'email' => '',
-        'password' => 'some password'
+        'password' => 'some password',
     ])
         ->assertUnprocessable();
 
     postJson(route('auth.login'), [
         'email' => 'invalid-email',
-        'password' => 'some password'
+        'password' => 'some password',
     ])
         ->assertUnprocessable();
 });
@@ -42,7 +40,7 @@ test('email should be required and valid', function () {
 test('password should be required', function () {
     postJson(route('auth.login'), [
         'email' => 'email@email.com',
-        'password' => ''
+        'password' => '',
     ])
         ->assertUnprocessable();
 });

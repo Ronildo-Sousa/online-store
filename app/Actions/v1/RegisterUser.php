@@ -15,7 +15,7 @@ class RegisterUser
 
         return [
             'user' => $user,
-            'token' => $token
+            'token' => $token,
         ];
     }
 }
